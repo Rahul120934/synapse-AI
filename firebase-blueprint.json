@@ -1,0 +1,68 @@
+{
+  "entities": {
+    "Session": {
+      "title": "Session",
+      "description": "A recorded lecture or study session.",
+      "type": "object",
+      "properties": {
+        "title": { "type": "string", "description": "Title of the session" },
+        "lecturer": { "type": "string", "description": "Name of the lecturer" },
+        "topic": { "type": "string", "description": "Main topic of the session" },
+        "duration": { "type": "number", "description": "Duration in minutes" },
+        "wordCount": { "type": "number", "description": "Total word count of transcription" },
+        "confidence": { "type": "number", "description": "AI confidence score (0-100)" },
+        "summary": { "type": "string", "description": "AI-generated summary" },
+        "takeaways": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "title": { "type": "string" },
+              "description": { "type": "string" },
+              "icon": { "type": "string" }
+            }
+          }
+        },
+        "transcript": { "type": "string", "description": "Full transcription text" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "uid": { "type": "string", "description": "User ID of the owner" }
+      },
+      "required": ["title", "uid", "createdAt"]
+    },
+    "Quiz": {
+      "title": "Quiz",
+      "description": "A quiz generated from a session.",
+      "type": "object",
+      "properties": {
+        "sessionId": { "type": "string", "description": "ID of the source session" },
+        "score": { "type": "number" },
+        "totalQuestions": { "type": "number" },
+        "questions": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "question": { "type": "string" },
+              "options": { "type": "array", "items": { "type": "string" } },
+              "correctAnswer": { "type": "string" },
+              "explanation": { "type": "string" }
+            }
+          }
+        },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "uid": { "type": "string" }
+      },
+      "required": ["sessionId", "uid", "createdAt"]
+    }
+  },
+  "firestore": {
+    "/sessions/{sessionId}": {
+      "schema": "Session",
+      "description": "Collection of study sessions."
+    },
+    "/quizzes/{quizId}": {
+      "schema": "Quiz",
+      "description": "Collection of generated quizzes."
+    }
+  }
+}

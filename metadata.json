@@ -1,0 +1,5 @@
+{
+  "name": "Synapse AI",
+  "description": "Neural Transcription Engine for study sessions and lecture summaries.",
+  "requestFramePermissions": ["microphone"]
+}
